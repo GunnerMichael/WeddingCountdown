@@ -1,0 +1,83 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      x:Class="WeddingCountdown.MainPage"
+      mc:Ignorable="d"
+      DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <Grid/>
+            </CommandBar.Content>
+            <AppBarButton Icon="Edit" Label="Upload Picture" Command="{Binding UploadPictureCommand}"/>
+            <AppBarButton Icon="Cancel" Label="Cancel"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="WindowsSizes">
+                <VisualState x:Name="small">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0">
+                        </AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="image.MaxWidth" Value="300"/>
+                        <Setter Target="image.(RelativePanel.Below)" Value="Header"/>
+                        <Setter Target="Countdown.(RelativePanel.Below)" Value="image"/>
+                        <Setter Target="weddingDate.(RelativePanel.Below)" Value="Countdown"/>
+                    </VisualState.Setters>
+                    
+
+                </VisualState>
+                <VisualState x:Name="medium">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720">
+                        </AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="image.MaxWidth" Value="700"/>
+                        <Setter Target="image.(RelativePanel.Below)" Value="Header"/>
+                        <Setter Target="Countdown.(RelativePanel.Below)" Value="image"/>
+                        <Setter Target="weddingDate.(RelativePanel.Below)" Value="Countdown"/>
+
+
+                    </VisualState.Setters>
+
+                </VisualState>
+
+                <VisualState x:Name="large">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024">
+                        </AdaptiveTrigger>
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="image.MaxWidth" Value="1000"/>
+                        <Setter Target="image.(RelativePanel.Below)" Value="Header"/>
+                        <Setter Target="Countdown.(RelativePanel.Below)" Value="image"/>
+                        <Setter Target="weddingDate.(RelativePanel.Below)" Value="Countdown"/>
+
+
+                    </VisualState.Setters>
+
+
+                </VisualState>
+
+
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <RelativePanel HorizontalAlignment="Stretch" Margin="12">
+            <TextBlock x:Name="Header" Text="Wedding countdown" Style="{ThemeResource TitleTextBlockStyle}" Margin="12" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+            <Image x:Name="image" Source="{Binding Image}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+            <TextBlock x:Name="Countdown" Text="{Binding Clock}" Style="{ThemeResource TitleTextBlockStyle}" Margin="12" RelativePanel.AlignHorizontalCenterWithPanel="True"/>
+            <CalendarDatePicker x:Name="weddingDate" Header="Wedding Date" Date="{Binding WeddingDate, Mode=TwoWay}" RelativePanel.AlignHorizontalCenterWithPanel="True" DateChanged="weddingDate_DateChanged">
+            </CalendarDatePicker>
+        </RelativePanel>
+    </Grid>
+</Page>
